@@ -3,25 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Power BI Embedded Report</title>
+    <title>Protected Page</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-        }
-        iframe {
-            width: 100%;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             height: 100vh;
+        }
+        #loginForm {
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            text-align: center;
+        }
+        input {
+            margin: 10px 0;
+            padding: 10px;
+            width: 80%;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px;
+            width: 100%;
+            background-color: #007bff;
+            color: white;
             border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <h1>Power BI Dashboard</h1>
-    <!-- Embed Power BI Report -->
-    <iframe 
-        src="https://app.powerbi.com/view?r=YOUR_EMBED_CODE_HERE" 
-        frameborder="0" 
-        allowFullScreen="true">
-    </iframe>
+
+    <div id="loginForm">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Username"><br>
+        <input type="password" id="password" placeholder="Password"><br>
+        <button onclick="validate()">Login</button>
+        <p id="error" style="color: red;"></p>
+    </div>
+
+    <script>
+        function validate() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            // Check credentials
+            if (username === "madhu" && password === "warsh1234") {
+                // Redirect to the protected content
+                window.location.href = "protected.html";
+            } else {
+                document.getElementById("error").textContent = "Invalid username or password!";
+            }
+        }
+    </script>
+
 </body>
 </html>
