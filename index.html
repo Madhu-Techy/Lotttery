@@ -4,32 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Firebase Authentication</title>
-  <style>
-    /* Basic styles to center content */
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    /* Hide the dashboard initially */
-    #dashboard {
-      display: none; /* Hidden by default */
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-    /* Style the iframe to fill the viewport */
-    iframe {
-      width: 100vw;
-      height: 100vh;
-      border: none;
-    }
-  </style>
 </head>
 <body>
   <h1>Login</h1>
@@ -37,10 +11,6 @@
   <input type="email" id="email" placeholder="Email" required>
   <input type="password" id="password" placeholder="Password" required>
   <button id="login">Login</button>
-
-  <div id="dashboard">
-    <iframe title="lotterry testing2"  src="https://app.powerbi.com/view?r=eyJrIjoiMjdkZjUxNDEtMmRkMi00YTI0LTk4MmEtMzM0YTFlMGRlMjE1IiwidCI6ImI5YWYxNjM1LTE1MzktNDA0Ny1hMzAwLTZmNWFhMjA2M2QwOCIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
-  </div>
 
   <script type="module">
     // Import Firebase functions
@@ -75,12 +45,8 @@
         console.log("User logged in:", userCredential.user.email);
         alert("Login successful!");
 
-        // Hide the login form and show the dashboard
-        document.querySelector('h1').style.display = 'none';
-        document.querySelector('input[type="email"]').style.display = 'none';
-        document.querySelector('input[type="password"]').style.display = 'none';
-        document.getElementById('login').style.display = 'none';
-        document.getElementById('dashboard').style.display = 'block'; // Show the dashboard
+        // Redirect to Power BI dashboard page after successful login
+        window.location.href = "dashboard.html"; // Replace with the actual path to your dashboard page
       } catch (error) {
         console.error("Login error:", error.message);
         alert("Login failed: " + error.message);
