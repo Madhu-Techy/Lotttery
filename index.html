@@ -1,68 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protected Page</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        #loginForm {
-            background-color: white;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            text-align: center;
-        }
-        input {
-            margin: 10px 0;
-            padding: 10px;
-            width: 80%;
-            font-size: 16px;
-        }
-        button {
-            padding: 10px;
-            width: 100%;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firebase Authentication</title>
 </head>
 <body>
+  <h1>Login</h1>
 
-    <div id="loginForm">
-        <h2>Login</h2>
-        <input type="text" id="username" placeholder="Username"><br>
-        <input type="password" id="password" placeholder="Password"><br>
-        <button onclick="validate()">Login</button>
-        <p id="error" style="color: red;"></p>
-    </div>
+  <input type="email" id="email" placeholder="Email" required>
+  <input type="password" id="password" placeholder="Password" required>
+  <button id="login">Login</button>
 
-    <script>
-        function validate() {
-            var username = document.getElementById("username").value;
-            var password = document.getElementById("password").value;
+  <script type="module">
+    // Import Firebase functions
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js";
 
-            // Check credentials
-            if (username === "madhu" && password === "warsh1234") {
-                // Redirect to the protected content
-                window.location.href = "protected.html";
-            } else {
-                document.getElementById("error").textContent = "Invalid username or password!";
-            }
-        }
-    </script>
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCSsxI53P9Cd7j2QPGouvMLaNCspRRm4E4",
+      authDomain: "lottery-72b8c.firebaseapp.com",
+      projectId: "lottery-72b8c",
+      storageBucket: "lottery-72b8c.appspot.com",
+      messagingSenderId: "425582563352",
+      appId: "1:425582563352:web:5b6810f3fdd55d4e98336d",
+      measurementId: "G-Q4PSZNNBJP"
+    };
 
+    // Initialize Firebase and Firebase Auth
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);  // Initialize the Auth instance
+
+    // Add login event listener
+    document.getElementById('login').addEventListener('click', async () => {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        // Sign in with email and password
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        console.log("User logged in:", userCredential.user.email);
+        alert("Login successful!");
+
+        // Redirect to Power BI dashboard page after successful login
+        window.location.href = "dashboard.html"; // Replace with the actual path to your dashboard page
+      } catch (error) {
+        console.error("Login error:", error.message);
+        alert("Login failed: " + error.message);
+      }
+    });
+  </script>
 </body>
 </html>
